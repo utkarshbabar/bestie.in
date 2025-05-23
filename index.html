@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Site For My Bestie!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFF0F5; /* Lavender Blush - a very light pink */
+        }
+        .header-title {
+            font-family: 'Parisienne', cursive; /* Elegant script font for main title */
+            color: #E53E9B; /* Hot Pink */
+        }
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #D81B60; /* Medium Pink */
+            border-bottom: 2px solid #F48FB1; /* Light Pink */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 1rem; /* 16px */
+            box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.1), 0 4px 6px -2px rgba(236, 72, 153, 0.05); /* Soft pink shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* To ensure image corners are rounded */
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(236, 72, 153, 0.15), 0 10px 10px -5px rgba(236, 72, 153, 0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px; /* Fixed height for uniform card size */
+            object-fit: cover; /* Ensures image covers the area well */
+        }
+        .product-name {
+            font-weight: 600;
+            color: #AD1457; /* Darker Pink */
+        }
+        .product-description {
+            color: #757575; /* Gray for description */
+        }
+        .btn-amazon {
+            background-color: #FF9900; /* Amazon Orange */
+            color: white;
+        }
+        .btn-amazon:hover {
+            background-color: #E68A00;
+        }
+        .btn-flipkart {
+            background-color: #2874F0; /* Flipkart Blue */
+            color: white;
+        }
+        .btn-flipkart:hover {
+            background-color: #1C58D3;
+        }
+        .btn-other {
+            background-color: #EC4899; /* Pink */
+            color: white;
+        }
+        .btn-other:hover {
+            background-color: #D81B60;
+        }
+        .footer {
+            background-color: #FCE4EC; /* Very Light Pink */
+            color: #C2185B; /* Medium Dark Pink */
+        }
+        .nav-link {
+            color: #E53E9B; /* Hot Pink */
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #D81B60; /* Medium Pink */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <nav class="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold nav-link">For My Bestie <span class="text-pink-400">&hearts;</span></a>
+            <div>
+                <a href="#beauty" class="nav-link hover:text-pink-500 mx-2">Beauty</a>
+                <a href="#accessories" class="nav-link hover:text-pink-500 mx-2">Accessories</a>
+                <a href="#dresses" class="nav-link hover:text-pink-500 mx-2">Dresses</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-12 md:py-20 text-center bg-gradient-to-br from-pink-300 via-pink-100 to-rose-200">
+        <div class="container mx-auto px-6">
+            <h1 class="header-title text-5xl md:text-7xl mb-4">Especially For You, Bestie!</h1>
+            <p class="text-lg md:text-xl text-pink-700 max-w-2xl mx-auto">
+                Here are some handpicked goodies just for you! Hope you love them as much as I love our friendship! &hearts;
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section id="beauty" class="mb-16">
+            <h2 class="section-title text-3xl md:text-4xl">Beauty Essentials</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FFC0CB/AD1457?text=Glow+Serum" alt="Beauty Product 1" class="product-image" onerror="this.src='https://placehold.co/400x300/FFC0CB/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Radiant Glow Serum</h3>
+                        <p class="product-description text-sm mb-4">Achieve that perfect dewy look with this amazing serum. Perfect for all skin types!</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.amazon.in" target="_blank" class="btn-amazon py-2 px-4 rounded-lg text-sm font-semibold">View on Amazon</a>
+                            <a href="https://www.flipkart.com" target="_blank" class="btn-flipkart py-2 px-4 rounded-lg text-sm font-semibold">View on Flipkart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FFB6C1/C2185B?text=Luxe+Lipstick" alt="Beauty Product 2" class="product-image" onerror="this.src='https://placehold.co/400x300/FFB6C1/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Velvet Kiss Lipstick</h3>
+                        <p class="product-description text-sm mb-4">A stunning shade that will make your lips pop! Long-lasting and super comfortable.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.amazon.in" target="_blank" class="btn-amazon py-2 px-4 rounded-lg text-sm font-semibold">View on Amazon</a>
+                            <a href="https://www.nykaa.com" target="_blank" class="btn-other py-2 px-4 rounded-lg text-sm font-semibold">View on Nykaa</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FFA0AB/E53E9B?text=Chic+Palette" alt="Beauty Product 3" class="product-image" onerror="this.src='https://placehold.co/400x300/FFA0AB/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Eyeshadow Palette Dream</h3>
+                        <p class="product-description text-sm mb-4">All the shades you need for day to night looks. Highly pigmented and blendable.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.flipkart.com" target="_blank" class="btn-flipkart py-2 px-4 rounded-lg text-sm font-semibold">View on Flipkart</a>
+                            <a href="https://www.myntra.com" target="_blank" class="btn-other py-2 px-4 rounded-lg text-sm font-semibold">View on Myntra</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="accessories" class="mb-16">
+            <h2 class="section-title text-3xl md:text-4xl">Chic Accessories</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FF9EB4/AD1457?text=Elegant+Necklace" alt="Accessory 1" class="product-image" onerror="this.src='https://placehold.co/400x300/FF9EB4/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Dainty Gold Necklace</h3>
+                        <p class="product-description text-sm mb-4">A touch of elegance for any outfit. Simple, yet stunning.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.amazon.in" target="_blank" class="btn-amazon py-2 px-4 rounded-lg text-sm font-semibold">View on Amazon</a>
+                            <a href="https://www.myntra.com" target="_blank" class="btn-other py-2 px-4 rounded-lg text-sm font-semibold">View on Myntra</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FF8DA1/C2185B?text=Stylish+Bag" alt="Accessory 2" class="product-image" onerror="this.src='https://placehold.co/400x300/FF8DA1/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Trendy Crossbody Bag</h3>
+                        <p class="product-description text-sm mb-4">Perfect for carrying your essentials in style. Available in multiple colors!</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.flipkart.com" target="_blank" class="btn-flipkart py-2 px-4 rounded-lg text-sm font-semibold">View on Flipkart</a>
+                            <a href="https://www.ajio.com" target="_blank" class="btn-other py-2 px-4 rounded-lg text-sm font-semibold">View on Ajio</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FF7C8E/E53E9B?text=Cute+Earrings" alt="Accessory 3" class="product-image" onerror="this.src='https://placehold.co/400x300/FF7C8E/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Sparkle Stud Earrings</h3>
+                        <p class="product-description text-sm mb-4">Add a little sparkle to your day with these adorable earrings.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.amazon.in" target="_blank" class="btn-amazon py-2 px-4 rounded-lg text-sm font-semibold">View on Amazon</a>
+                            <a href="https://www.flipkart.com" target="_blank" class="btn-flipkart py-2 px-4 rounded-lg text-sm font-semibold">View on Flipkart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dresses" class="mb-16">
+            <h2 class="section-title text-3xl md:text-4xl">Stylish Dresses</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FF6B7A/AD1457?text=Floral+Dress" alt="Dress 1" class="product-image" onerror="this.src='https://placehold.co/400x300/FF6B7A/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Summer Floral Maxi Dress</h3>
+                        <p class="product-description text-sm mb-4">Flowy and fabulous, perfect for sunny days or a brunch date.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.myntra.com" target="_blank" class="btn-other py-2 px-4 rounded-lg text-sm font-semibold">View on Myntra</a>
+                            <a href="https://www.amazon.in" target="_blank" class="btn-amazon py-2 px-4 rounded-lg text-sm font-semibold">View on Amazon</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FF5A67/C2185B?text=Party+Dress" alt="Dress 2" class="product-image" onerror="this.src='https://placehold.co/400x300/FF5A67/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Little Pink Party Dress</h3>
+                        <p class="product-description text-sm mb-4">Turn heads at any party with this chic and playful dress.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.flipkart.com" target="_blank" class="btn-flipkart py-2 px-4 rounded-lg text-sm font-semibold">View on Flipkart</a>
+                            <a href="https://www.ajio.com" target="_blank" class="btn-other py-2 px-4 rounded-lg text-sm font-semibold">View on Ajio</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://placehold.co/400x300/FF4954/E53E9B?text=Casual+Dress" alt="Dress 3" class="product-image" onerror="this.src='https://placehold.co/400x300/FF4954/333333?text=Image+Error'">
+                    <div class="p-6">
+                        <h3 class="product-name text-xl mb-2">Comfy Knit Midi Dress</h3>
+                        <p class="product-description text-sm mb-4">Effortlessly stylish and comfortable for everyday wear.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.amazon.in" target="_blank" class="btn-amazon py-2 px-4 rounded-lg text-sm font-semibold">View on Amazon</a>
+                            <a href="https://www.myntra.com" target="_blank" class="btn-other py-2 px-4 rounded-lg text-sm font-semibold">View on Myntra</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-lg mb-2">Made with &hearts; for the bestest bestie in the world!</p>
+            <p class="text-sm">Hope you find something you absolutely adore!</p>
+        </div>
+    </footer>
+
+</body>
+</html>
