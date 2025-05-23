@@ -10,7 +10,6 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #FFF0F5; /* Lavender Blush */
-            /* Subtle pattern for a richer background */
             background-image: radial-gradient(#FCE4EC 1px, transparent 1px);
             background-size: 15px 15px;
         }
@@ -31,11 +30,11 @@
             border-radius: 1rem;
             box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.1), 0 4px 6px -2px rgba(236, 72, 153, 0.05);
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 0; /* Initial state for scroll animation */
+            transform: translateY(30px); /* Initial state for scroll animation */
             transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease;
         }
-        .product-card.is-visible {
+        .product-card.is-visible { /* State for when element is visible */
             opacity: 1;
             transform: translateY(0);
         }
@@ -50,12 +49,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative; /* For loader positioning */
         }
         .product-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        .featured-image-container {
+            background-color: #FCE4EC; /* Light pink background for the container */
         }
         .product-name {
             font-weight: 600;
@@ -97,24 +98,127 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Loader styles */
-        .loader {
-            border: 4px solid #f3f3f3; /* Light grey */
-            border-top: 4px solid #E53E9B; /* Hot Pink */
+
+        /* Chatbot Styles */
+        .chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #E53E9B; /* Hot Pink */
+            color: white;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: -20px;
-            margin-left: -20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            z-index: 1000;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .chat-bubble:hover {
+            transform: scale(1.1);
+            background-color: #D81B60; /* Medium Pink */
         }
+        .chat-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 320px;
+            height: 450px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none; /* Initially not interactive */
+            z-index: 999;
+        }
+        .chat-window.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        .chat-header {
+            background-color: #F48FB1; /* Light Pink */
+            color: #AD1457; /* Darker Pink */
+            padding: 12px 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .chat-close-btn {
+            background: none;
+            border: none;
+            color: #AD1457;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #FFF8FA; /* Very very light pink */
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 18px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+        .user-message {
+            background-color: #FFC0CB; /* Pink */
+            color: #5D1049; /* Dark Purple/Pink text */
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        .bot-message {
+            background-color: #FCE4EC; /* Lighter Pink */
+            color: #880E4F; /* Dark Pink text */
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        .chat-input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #F8BBD0; /* Light pink border */
+        }
+        .chat-input {
+            flex-grow: 1;
+            border: 1px solid #F48FB1; /* Light Pink */
+            border-radius: 20px;
+            padding: 8px 12px;
+            margin-right: 8px;
+            outline: none;
+        }
+        .chat-input:focus {
+            border-color: #E53E9B; /* Hot Pink */
+        }
+        .chat-send-btn {
+            background-color: #E53E9B; /* Hot Pink */
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .chat-send-btn:hover {
+            background-color: #D81B60; /* Medium Pink */
+        }
+
     </style>
 </head>
 <body class="text-gray-800">
@@ -134,19 +238,27 @@
         <div class="container mx-auto px-6">
             <h1 class="header-title-text text-5xl md:text-7xl mb-4 header-anim-item">Especially For You, Bestie!</h1>
             <p class="text-lg md:text-xl text-pink-700 max-w-2xl mx-auto header-anim-item" style="transition-delay: 0.2s;">
-                Here are some AI-imagined goodies just for you! Hope you love them as much as I love our friendship! &hearts;
+                Here are some handpicked goodies just for you! Hope you love them as much as I love our friendship! &hearts;
             </p>
         </div>
     </header>
+
+    <section class="py-10 text-center featured-image-container">
+        <div class="container mx-auto px-6">
+            <div class="w-full md:w-3/4 lg:w-2/3 mx-auto rounded-xl shadow-2xl overflow-hidden border-4 border-white transform transition-all duration-500 hover:scale-105">
+                <img src="images/bestie_special_image.jpg" alt="A special moment for my bestie!" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/800x500/F48FB1/FFF?text=Add+Your+Special+Image+Here%0A(images/bestie_special_image.jpg)'; this.alt='Error loading special image. Please add bestie_special_image.jpg to your images folder.'">
+            </div>
+            <p class="mt-6 text-pink-700 text-xl italic">"Side by side or miles apart, best friends are always close at heart."</p>
+        </div>
+    </section>
 
     <main class="container mx-auto px-6 py-12">
         <section id="beauty" class="mb-16">
             <h2 class="section-title text-3xl md:text-4xl">Beauty Essentials</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="product-card" data-product-name="Radiant Glow Serum in a beautiful pink bottle">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FFC0CB/AD1457?text=Loading+Image..." alt="Radiant Glow Serum" class="product-image" onerror="this.src='https://placehold.co/400x300/FFC0CB/333333?text=Image+Error'">
+                        <img src="images/radiant-glow-serum.png" alt="Radiant Glow Serum" class="product-image" onerror="this.src='https://placehold.co/400x300/FFC0CB/333333?text=Image+Error%0A(images/radiant-glow-serum.png)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Radiant Glow Serum</h3>
@@ -157,10 +269,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-card" data-product-name="Velvet Kiss Lipstick in a luxurious pink case">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FFB6C1/C2185B?text=Loading+Image..." alt="Velvet Kiss Lipstick" class="product-image" onerror="this.src='https://placehold.co/400x300/FFB6C1/333333?text=Image+Error'">
+                        <img src="images/velvet-kiss-lipstick.jpg" alt="Velvet Kiss Lipstick" class="product-image" onerror="this.src='https://placehold.co/400x300/FFB6C1/333333?text=Image+Error%0A(images/velvet-kiss-lipstick.jpg)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Velvet Kiss Lipstick</h3>
@@ -171,10 +282,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-card" data-product-name="Chic Eyeshadow Palette with pink and neutral tones">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FFA0AB/E53E9B?text=Loading+Image..." alt="Eyeshadow Palette Dream" class="product-image" onerror="this.src='https://placehold.co/400x300/FFA0AB/333333?text=Image+Error'">
+                        <img src="images/chic-eyeshadow-palette.png" alt="Eyeshadow Palette Dream" class="product-image" onerror="this.src='https://placehold.co/400x300/FFA0AB/333333?text=Image+Error%0A(images/chic-eyeshadow-palette.png)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Eyeshadow Palette Dream</h3>
@@ -191,10 +301,9 @@
         <section id="accessories" class="mb-16">
             <h2 class="section-title text-3xl md:text-4xl">Chic Accessories</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="product-card" data-product-name="Dainty Gold Necklace with a small pink gemstone">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FF9EB4/AD1457?text=Loading+Image..." alt="Dainty Gold Necklace" class="product-image" onerror="this.src='https://placehold.co/400x300/FF9EB4/333333?text=Image+Error'">
+                        <img src="images/dainty-gold-necklace.png" alt="Dainty Gold Necklace" class="product-image" onerror="this.src='https://placehold.co/400x300/FF9EB4/333333?text=Image+Error%0A(images/dainty-gold-necklace.png)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Dainty Gold Necklace</h3>
@@ -205,10 +314,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-card" data-product-name="Trendy Pink Crossbody Bag with gold chain">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FF8DA1/C2185B?text=Loading+Image..." alt="Trendy Crossbody Bag" class="product-image" onerror="this.src='https://placehold.co/400x300/FF8DA1/333333?text=Image+Error'">
+                        <img src="images/trendy-crossbody-bag.jpg" alt="Trendy Crossbody Bag" class="product-image" onerror="this.src='https://placehold.co/400x300/FF8DA1/333333?text=Image+Error%0A(images/trendy-crossbody-bag.jpg)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Trendy Crossbody Bag</h3>
@@ -219,10 +327,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-card" data-product-name="Sparkly Pink Stud Earrings, heart-shaped">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FF7C8E/E53E9B?text=Loading+Image..." alt="Sparkle Stud Earrings" class="product-image" onerror="this.src='https://placehold.co/400x300/FF7C8E/333333?text=Image+Error'">
+                        <img src="images/sparkle-stud-earrings.png" alt="Sparkle Stud Earrings" class="product-image" onerror="this.src='https://placehold.co/400x300/FF7C8E/333333?text=Image+Error%0A(images/sparkle-stud-earrings.png)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Sparkle Stud Earrings</h3>
@@ -239,10 +346,9 @@
         <section id="dresses" class="mb-16">
             <h2 class="section-title text-3xl md:text-4xl">Stylish Dresses</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="product-card" data-product-name="Beautiful Summer Floral Maxi Dress in pink and white">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FF6B7A/AD1457?text=Loading+Image..." alt="Summer Floral Maxi Dress" class="product-image" onerror="this.src='https://placehold.co/400x300/FF6B7A/333333?text=Image+Error'">
+                        <img src="images/summer-floral-maxi-dress.jpg" alt="Summer Floral Maxi Dress" class="product-image" onerror="this.src='https://placehold.co/400x300/FF6B7A/333333?text=Image+Error%0A(images/summer-floral-maxi-dress.jpg)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Summer Floral Maxi Dress</h3>
@@ -253,10 +359,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-card" data-product-name="Chic Little Pink Party Dress with sequins">
+                <div class="product-card">
                      <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FF5A67/C2185B?text=Loading+Image..." alt="Little Pink Party Dress" class="product-image" onerror="this.src='https://placehold.co/400x300/FF5A67/333333?text=Image+Error'">
+                        <img src="images/little-pink-party-dress.jpg" alt="Little Pink Party Dress" class="product-image" onerror="this.src='https://placehold.co/400x300/FF5A67/333333?text=Image+Error%0A(images/little-pink-party-dress.jpg)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Little Pink Party Dress</h3>
@@ -267,10 +372,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-card" data-product-name="Comfortable Pink Knit Midi Dress, casual style">
+                <div class="product-card">
                     <div class="product-image-container">
-                        <div class="loader"></div>
-                        <img src="https://placehold.co/400x300/FF4954/E53E9B?text=Loading+Image..." alt="Comfy Knit Midi Dress" class="product-image" onerror="this.src='https://placehold.co/400x300/FF4954/333333?text=Image+Error'">
+                        <img src="images/comfy-knit-midi-dress.png" alt="Comfy Knit Midi Dress" class="product-image" onerror="this.src='https://placehold.co/400x300/FF4954/333333?text=Image+Error%0A(images/comfy-knit-midi-dress.png)'">
                     </div>
                     <div class="p-6">
                         <h3 class="product-name text-xl mb-2">Comfy Knit Midi Dress</h3>
@@ -292,8 +396,25 @@
         </div>
     </footer>
 
+    <div id="chatBubble" class="chat-bubble">
+        <span>&#128151;</span> </div>
+
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <span>Your Web Bestie &hearts;</span>
+            <button id="closeChatBtn" class="chat-close-btn">&times;</button>
+        </div>
+        <div id="chatMessages" class="chat-messages">
+            </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Say hi to your bestie...">
+            <button id="chatSendBtn" class="chat-send-btn">Send</button>
+        </div>
+    </div>
+
+
     <script>
-        document.addEventListener('DOMContentLoaded', async function() { // Made async for await
+        document.addEventListener('DOMContentLoaded', function() {
             // Animate header text
             const headerItems = document.querySelectorAll('.header-anim-item');
             headerItems.forEach(item => {
@@ -323,58 +444,117 @@
                 scrollObserver.observe(card);
             });
 
-            // AI Image Generation for Product Cards
-            const productCardsForImage = document.querySelectorAll('.product-card');
-            const apiKey = ""; // API key will be injected by the environment
+            // Chatbot Functionality
+            const chatBubble = document.getElementById('chatBubble');
+            const chatWindow = document.getElementById('chatWindow');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const chatSendBtn = document.getElementById('chatSendBtn');
 
-            for (const card of productCardsForImage) {
-                const productName = card.dataset.productName || "beautiful pink product"; // Fallback prompt
-                const imgElement = card.querySelector('.product-image');
-                const loaderElement = card.querySelector('.loader');
+            const botResponses = {
+                default: [
+                    "That's so interesting! Tell me more, bestie!",
+                    "You know, you're an absolutely amazing friend! ✨",
+                    "I'm all ears! What's on your mind?",
+                    "Sending you a big virtual hug right now! 🤗",
+                    "Just thinking about how lucky I am to have a bestie like you!",
+                    "This website was made with SO much love, just for you! Hope you feel it! 💕"
+                ],
+                greetings: [
+                    "Hey Bestie! So happy you're here! What are you thinking about today? 😊",
+                    "Hi there, superstar! ✨ So glad we can chat!",
+                    "Hello my dearest friend! This little corner is just for us to chat. 💖"
+                ],
+                feelings: [
+                    "You're so strong and wonderful, never forget that!",
+                    "Remember all the amazing times we've had? More to come! 🥂",
+                    "If you ever need anything, just know this virtual bestie (and your real one!) is here for you."
+                ],
+                products: [
+                    "Ooh, that sounds like a fabulous choice! It would look stunning on you!",
+                    "Great taste! I bet that would be perfect for you.",
+                    "Thinking about getting it? You totally deserve a treat!"
+                ],
+                bye: [
+                    "Talk soon, bestie! Have an amazing day! 💖",
+                    "Catch you later! Don't forget how awesome you are!",
+                    "Bye for now! Sending lots of love! 🥰"
+                ]
+            };
 
-                const prompt = `Photorealistic image of a ${productName}, suitable for an e-commerce website, elegant pink and girly theme, bright lighting, clean background.`;
-
-                const payload = {
-                    instances: [{ prompt: prompt }],
-                    parameters: { "sampleCount": 1 }
-                };
-                
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        // Updated error logging
-                        console.error(`API request failed for "${productName}" (check API key/permissions):`, response.status, await response.text());
-                        if (imgElement) imgElement.src = 'https://placehold.co/400x300/FFC0CB/333333?text=Error+Loading';
-                        if (loaderElement) loaderElement.style.display = 'none';
-                        continue; 
-                    }
-
-                    const result = await response.json();
-
-                    if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
-                        if (imgElement) {
-                            imgElement.src = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
-                        }
-                    } else {
-                        console.error(`No image data in API response for "${productName}":`, result);
-                        if (imgElement) imgElement.src = 'https://placehold.co/400x300/FFC0CB/333333?text=No+Image';
-                    }
-                } catch (error) {
-                    console.error(`Error fetching image for "${productName}":`, error);
-                    if (imgElement) imgElement.src = 'https://placehold.co/400x300/FFC0CB/333333?text=Fetch+Error';
-                } finally {
-                    if (loaderElement) loaderElement.style.display = 'none';
-                }
+            function getRandomResponse(category) {
+                const responses = botResponses[category] || botResponses.default;
+                return responses[Math.floor(Math.random() * responses.length)];
             }
+
+            function addMessage(message, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message', sender === 'user' ? 'user-message' : 'bot-message');
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+            }
+
+            function handleUserMessage() {
+                const userMessage = chatInput.value.trim();
+                if (userMessage === "") return;
+
+                addMessage(userMessage, 'user');
+                chatInput.value = ""; // Clear input
+
+                // Bot "thinking" delay
+                setTimeout(() => {
+                    let botReply = "";
+                    const lowerUserMessage = userMessage.toLowerCase();
+
+                    if (lowerUserMessage.includes("hello") || lowerUserMessage.includes("hi") || lowerUserMessage.includes("hey")) {
+                        botReply = getRandomResponse('greetings');
+                    } else if (lowerUserMessage.includes("dress") || lowerUserMessage.includes("serum") || lowerUserMessage.includes("lipstick") || lowerUserMessage.includes("necklace") || lowerUserMessage.includes("bag") || lowerUserMessage.includes("earrings")) {
+                        botReply = getRandomResponse('products');
+                    } else if (lowerUserMessage.includes("sad") || lowerUserMessage.includes("down") || lowerUserMessage.includes("bad day")) {
+                        botReply = "Oh no, bestie! I'm sending you the biggest virtual hug. Remember, you're incredibly strong and you've got this. And I'm always here if you need to talk. 💖";
+                    } else if (lowerUserMessage.includes("happy") || lowerUserMessage.includes("great") || lowerUserMessage.includes("love this")) {
+                        botReply = "That makes me SO happy to hear! You deserve all the joy! 😄";
+                    } else if (lowerUserMessage.includes("thank you") || lowerUserMessage.includes("thanks")) {
+                        botReply = "Anytime for my bestie! You're so welcome! 😊";
+                    } else if (lowerUserMessage.includes("bye") || lowerUserMessage.includes("see ya")) {
+                        botReply = getRandomResponse('bye');
+                    } else if (lowerUserMessage.includes("love you")) {
+                        botReply = "Aww, love you more, bestie! Our friendship is everything! 🥰";
+                    }
+                     else {
+                        botReply = getRandomResponse('default');
+                    }
+                    addMessage(botReply, 'bot');
+                }, 700);
+            }
+
+            chatBubble.addEventListener('click', () => {
+                chatWindow.classList.toggle('active');
+                if (chatWindow.classList.contains('active')) {
+                    // Add a welcome message if chat is empty or first time opening in session
+                    if(chatMessages.children.length === 0) {
+                         setTimeout(() => {
+                            addMessage(getRandomResponse('greetings'), 'bot');
+                        }, 300);
+                    }
+                }
+            });
+
+            closeChatBtn.addEventListener('click', () => {
+                chatWindow.classList.remove('active');
+            });
+
+            chatSendBtn.addEventListener('click', handleUserMessage);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleUserMessage();
+                }
+            });
         });
     </script>
 
 </body>
 </html>
+
